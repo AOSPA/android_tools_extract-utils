@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1c5329e_f5002a3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000447
+      },
+      "writtenOn": "2021-01-20T08:19:34Z",
+      "side": 1,
+      "message": "https://github.com/AOSPA/android_tools_extract-utils/commit/3f39ee5eed7397fb25be8890e36e4616f380113a",
+      "revId": "2970985e1df62d794879424de08d6024dc595200",
+      "serverId": "3162e3d8-d894-470e-abd9-724f7b0effad"
+    }
+  ]
+}
