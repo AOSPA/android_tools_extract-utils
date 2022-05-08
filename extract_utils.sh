@@ -434,6 +434,13 @@ function write_blueprint_packages() {
                 printf '\tcompile_multilib: "%s",\n' "$EXTRA"
             fi
             printf '\tcheck_elf_files: false,\n'
+            for ARG in "${ARGS[@]}"; do
+                if [[ "$ARG" =~ "OVERRIDES" ]]; then
+                    OVERRIDEPKG=${ARG##*\=}
+                    OVERRIDEPKG=${OVERRIDEPKG//,/\", \"}
+                    printf '\toverrides: ["%s"],\n' "$OVERRIDEPKG"
+                fi
+            done
         elif [ "$CLASS" = "APPS" ]; then
             printf 'android_app_import {\n'
             printf '\tname: "%s",\n' "$PKGNAME"
