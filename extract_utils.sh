@@ -20,6 +20,7 @@ COMMON=-1
 ARCHES=
 FULLY_DEODEXED=-1
 
+KEEP_DUMP=${KEEP_DUMP:-0}
 SKIP_CLEANUP=${SKIP_CLEANUP:-0}
 EXTRACT_TMP_DIR=$(mktemp -d)
 HOST="$(uname | tr '[:upper:]' '[:lower:]')"
@@ -1430,6 +1431,7 @@ function extract() {
     local COUNT=${#FILELIST[@]}
     local OUTPUT_ROOT="$ANDROID_ROOT"/"$OUTDIR"/proprietary
     local OUTPUT_TMP="$EXTRACT_TMP_DIR"/"$OUTDIR"/proprietary
+    local KEEP_DUMP_DIR="$SRC"
 
     if [ "$SRC" = "adb" ]; then
         init_adb_connection
@@ -1476,6 +1478,11 @@ function extract() {
             done
         fi
 
+        if [ "$KEEP_DUMP" == "true" ] || [ "$KEEP_DUMP" == "1" ]; then
+            rm -rf "$KEEP_DUMP_DIR"/system_dump
+            cp -a "$DUMPDIR" "$KEEP_DUMP_DIR"/system_dump
+        fi
+
         SRC="$DUMPDIR"
     fi
 
@@ -1504,6 +1511,11 @@ function extract() {
             fi
         done
 
+        if [ "$KEEP_DUMP" == "true" ] || [ "$KEEP_DUMP" == "1" ]; then
+            rm -rf "$KEEP_DUMP_DIR"/super_dump
+            cp -a "$DUMPDIR" "$KEEP_DUMP_DIR"/super_dump
+        fi
+
         SRC="$DUMPDIR"
     fi
 
@@ -1526,6 +1538,11 @@ function extract() {
                 fi
             fi
         done
+
+        if [ "$KEEP_DUMP" == "true" ] || [ "$KEEP_DUMP" == "1" ]; then
+            rm -rf "$KEEP_DUMP_DIR"/output
+            cp -a "$DUMPDIR" "$KEEP_DUMP_DIR"/output
+        fi
 
         SRC="$DUMPDIR"
     fi
