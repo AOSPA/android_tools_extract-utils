@@ -1510,6 +1510,7 @@ function extract() {
                 "$LPUNPACK" -p "$PARTITION" "$DUMPDIR"/super.raw "$DUMPDIR"
             fi
         done
+        rm "$DUMPDIR"/super.raw
 
         if [ "$KEEP_DUMP" == "true" ] || [ "$KEEP_DUMP" == "1" ]; then
             rm -rf "$KEEP_DUMP_DIR"/super_dump
