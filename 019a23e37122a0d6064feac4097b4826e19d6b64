@@ -1,0 +1,8 @@
+Verified+1: 007 <john.smith@unused.email>
+Code-Review+1: 007 <john.smith@unused.email>
+Code-Review+2: Jake Weinstein <jake@aospa.co>
+Submitted-by: 007 <john.smith@unused.email>
+Submitted-at: Wed, 27 Sep 2023 07:16:25 +0000
+Reviewed-on: https://gerrit.aospa.co/c/AOSPA/android_tools_extract-utils/+/33388
+Project: AOSPA/android_tools_extract-utils
+Branch: refs/heads/topaz
