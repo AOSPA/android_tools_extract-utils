@@ -498,6 +498,13 @@ function write_blueprint_packages() {
             SRC="$SRC/apex"
             printf '\tsrc: "%s/%s",\n' "$SRC" "$FILE"
             printf '\tfilename: "%s",\n' "$FILE"
+            for ARG in "${ARGS[@]}"; do
+                if [[ "$ARG" =~ "OVERRIDES" ]]; then
+                    OVERRIDEPKG=${ARG#*=}
+                    OVERRIDEPKG=${OVERRIDEPKG//,/\", \"}
+                    printf '\toverrides: ["%s"],\n' "$OVERRIDEPKG"
+                fi
+            done
         elif [ "$CLASS" = "APPS" ]; then
             printf 'android_app_import {\n'
             printf '\tname: "%s",\n' "$PKGNAME"
