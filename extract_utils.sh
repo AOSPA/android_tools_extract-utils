@@ -418,6 +418,7 @@ function write_blueprint_packages() {
     local SRC=
     local STEM=
     local OVERRIDEPKG=
+    local APEXNAME=
 
     for P in "${FILELIST[@]}"; do
         FILE=$(target_file "$P")
@@ -503,6 +504,10 @@ function write_blueprint_packages() {
                     OVERRIDEPKG=${ARG#*=}
                     OVERRIDEPKG=${OVERRIDEPKG//,/\", \"}
                     printf '\toverrides: ["%s"],\n' "$OVERRIDEPKG"
+                elif [[ "$ARG" =~ "APKEXNAME" ]]; then
+                    APEXNAME=${ARG#*=}
+                    APEXNAME=${APEXNAME//,/\", \"}
+                    printf '\tapex_name: ["%s"],\n' "$APEXNAME"
                 fi
             done
         elif [ "$CLASS" = "APPS" ]; then
