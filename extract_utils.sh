@@ -421,6 +421,7 @@ function write_blueprint_packages() {
     local APEXNAME=
     local BOOTCLASSPATH=
     local SYSTEMSERVERCLASSPATH=
+    local NAMESPACE=
 
     for P in "${FILELIST[@]}"; do
         FILE=$(target_file "$P")
@@ -518,6 +519,10 @@ function write_blueprint_packages() {
                     SYSTEMSERVERCLASSPATH=${ARG#*=}
                     SYSTEMSERVERCLASSPATH=${SYSTEMSERVERCLASSPATH//,/\", \"}
                     printf '\texported_systemserverclasspath_fragments: ["%s"],\n' "$SYSTEMSERVERCLASSPATH"
+                elif [[ "$ARG" =~ "NAMESPACE" ]]; then
+                    NAMESPACE=${ARG#*=}
+                    NAMESPACE=${NAMESPACE//,/\", \"}
+                    printf '\tconfig_namespace: "%s",\n' "$NAMESPACE"
                 fi
             done
         elif [ "$CLASS" = "APPS" ]; then
