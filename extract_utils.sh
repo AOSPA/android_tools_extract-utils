@@ -419,6 +419,8 @@ function write_blueprint_packages() {
     local STEM=
     local OVERRIDEPKG=
     local APEXNAME=
+    local BOOTCLASSPATH=
+    local SYSTEMSERVERCLASSPATH=
 
     for P in "${FILELIST[@]}"; do
         FILE=$(target_file "$P")
@@ -508,6 +510,14 @@ function write_blueprint_packages() {
                     APEXNAME=${ARG#*=}
                     APEXNAME=${APEXNAME//,/\", \"}
                     printf '\tapex_name: "%s",\n' "$APEXNAME"
+                elif [[ "$ARG" =~ "BOOTCLASSPATH" ]]; then
+                    BOOTCLASSPATH=${ARG#*=}
+                    BOOTCLASSPATH=${BOOTCLASSPATH//,/\", \"}
+                    printf '\texported_bootclasspath_fragments: ["%s"],\n' "$BOOTCLASSPATH"
+                elif [[ "$ARG" =~ "SYSTEMSERVERCLASSPATH" ]]; then
+                    SYSTEMSERVERCLASSPATH=${ARG#*=}
+                    SYSTEMSERVERCLASSPATH=${SYSTEMSERVERCLASSPATH//,/\", \"}
+                    printf printf '\texported_systemserverclasspath_fragments: ["%s"],\n' "$SYSTEMSERVERCLASSPATH"
                 fi
             done
         elif [ "$CLASS" = "APPS" ]; then
