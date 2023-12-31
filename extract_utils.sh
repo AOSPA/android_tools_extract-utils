@@ -502,7 +502,9 @@ function write_blueprint_packages() {
             printf 'android_app_import {\n'
             printf '\tname: "%s",\n' "$PKGNAME"
             printf '\towner: "%s",\n' "${VENDOR%\/*}"
-            if [ "$EXTRA" = "priv-app" ]; then
+            if [ "$EXTRA" = "overlay" ]; then
+                SRC="$SRC/overlay"
+            elif [ "$EXTRA" = "priv-app" ]; then
                 SRC="$SRC/priv-app"
             else
                 SRC="$SRC/app"
@@ -760,6 +762,10 @@ function write_product_packages() {
     local P_APPS=( $(prefix_match "product/app/") )
     if [ "${#P_APPS[@]}" -gt "0" ]; then
         write_blueprint_packages "APPS" "product" "" "P_APPS" >> "$ANDROIDBP"
+    fi
+    local P_APPS=( $(prefix_match "product/overlay/") )
+    if [ "${#P_APPS[@]}" -gt "0" ]; then
+        write_blueprint_packages "APPS" "product" "overlay" "P_APPS" >> "$ANDROIDBP"
     fi
     local P_PRIV_APPS=( $(prefix_match "product/priv-app/") )
     if [ "${#P_PRIV_APPS[@]}" -gt "0" ]; then
