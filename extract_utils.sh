@@ -71,6 +71,8 @@ function setup_vendor_deps() {
         local patchelf_variable="PATCHELF_${PATCHELF_VERSION}"
         export PATCHELF=${!patchelf_variable}
     fi
+
+    export APKTOOL="java -jar ${ANDROID_ROOT}/prebuilts/extract-tools/common/apktool.jar"
 }
 
 #
