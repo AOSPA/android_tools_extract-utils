@@ -576,6 +576,7 @@ function write_blueprint_packages() {
 
         # Allow overriding module name
         STEM=
+        OVERRIDEPKG=
         if [ "$TARGET_ENABLE_CHECKELF" != "false" ]; then
             DISABLE_CHECKELF=
             GENERATE_DEPS="true"
@@ -589,6 +590,9 @@ function write_blueprint_packages() {
             elif [[ "$ARG" =~ "MODULE" ]]; then
                 STEM="$PKGNAME"
                 PKGNAME=${ARG#*=}
+            elif [[ "$ARG" =~ "OVERRIDES" ]]; then
+                OVERRIDEPKG=${ARG#*=}
+                OVERRIDEPKG=${OVERRIDEPKG//,/\", \"}
             elif [[ "$ARG" == "DISABLE_CHECKELF" ]]; then
                 DISABLE_CHECKELF="true"
             elif [[ "$ARG" == "DISABLE_DEPS" ]]; then
@@ -707,6 +711,9 @@ function write_blueprint_packages() {
             printf '\tname: "%s",\n' "$PKGNAME"
             if [ -n "$STEM" ]; then
                 printf '\tstem: "%s",\n' "$STEM"
+            fi
+            if [ -n "$OVERRIDEPKG" ]; then
+                printf '\toverrides: ["%s"],\n' "$OVERRIDEPKG"
             fi
             printf '\towner: "%s",\n' "${VENDOR%\/*}"
             if [ "$EXTENSION" != "sh" ]; then
