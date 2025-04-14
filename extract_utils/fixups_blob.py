@@ -476,6 +476,22 @@ class blob_fixup:
     def strip_debug_sections(self) -> blob_fixup:
         return self.call(self.strip_debug_sections_impl)
 
+    def split_file_parts_impl(
+        self,
+        bytes_size: str,
+        ctx: BlobFixupCtx,
+        file: File,
+        file_path: str,
+        *args,
+        **kwargs,
+    ):
+        part_path = file_path + '.part'
+        run_cmd(['split', f'--bytes={bytes_size}', '-d', file_path, part_path])
+
+    def split_file_parts(self, bytes_size: str) -> blob_fixup:
+        impl = partial(self.split_file_parts_impl, bytes_size)
+        return self.call(impl)
+
     def regex_replace_impl(
         self,
         pattern: str,

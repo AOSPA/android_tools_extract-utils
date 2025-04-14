@@ -807,6 +807,9 @@ class ExtractUtilsModule:
         if FileArgs.STRIP_DEBUG_SECTIONS in file.args:
             return True
 
+        if FileArgs.SPLIT_FILE in file.args:
+            return True
+
         if self.blob_fixups.get(file.dst) is not None:
             return True
 
@@ -824,6 +827,11 @@ class ExtractUtilsModule:
 
         if FileArgs.STRIP_DEBUG_SECTIONS in file.args:
             blob_fixup().strip_debug_sections().run(ctx, file, file_path)
+
+        if FileArgs.SPLIT_FILE in file.args:
+            bytes_size = file.args[FileArgs.SPLIT_FILE]
+            assert isinstance(bytes_size, str)
+            blob_fixup().split_file_parts(bytes_size).run(ctx, file, file_path)
 
         # TODO: mark which fixups have been used and print unused ones
         # at the end
