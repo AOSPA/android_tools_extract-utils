@@ -55,6 +55,7 @@ class FileArgs(str, Enum):
     FIX_SONAME = 'FIX_SONAME'
     FIX_XML = 'FIX_XML'
     STRIP_DEBUG_SECTIONS = 'STRIP_DEBUG_SECTIONS'
+    SPLIT_FILE = 'SPLIT_FILE'
     OVERRIDES = 'OVERRIDES'
     PRESIGNED = 'PRESIGNED'
     REQUIRED = 'REQUIRED'
@@ -79,6 +80,7 @@ FILE_ARGS_TYPE_MAP = {
     FileArgs.FIX_SONAME: True,
     FileArgs.FIX_XML: True,
     FileArgs.STRIP_DEBUG_SECTIONS: True,
+    FileArgs.SPLIT_FILE: str,
     FileArgs.OVERRIDES: list,
     FileArgs.PRESIGNED: True,
     FileArgs.REQUIRED: list,
