@@ -251,6 +251,7 @@ def write_elfs_package(
             .no_strip()
             .prefer()
             .relative_install_path()
+            .set('overrides', file.overrides, optional=True)
             .specific()
             .recovery_available()
             .set('required', file.required, optional=True)
@@ -269,6 +270,7 @@ def write_elfs_package(
         .check_elf(enable_check_elf)
         .relative_install_path()
         .prefer()
+        .set('overrides', file.overrides, optional=True)
         .specific()
         .recovery_available()
         .set('required', file.required, optional=True)
@@ -341,6 +343,7 @@ def write_apex_package(file: File, builder: FileBpBuilder):
         .owner()
         .src()
         .filename()
+        .set('overrides', file.overrides, optional=True)
         .specific()
     )
     return package_name
@@ -376,6 +379,7 @@ def write_framework_package(file: File, builder: FileBpBuilder):
         .name(package_name)
         .owner()
         .jars()
+        .set('overrides', file.overrides, optional=True)
         .specific()
     )
 
@@ -397,6 +401,7 @@ def write_etc_package(file: File, builder: FileBpBuilder):
         .src()
         .set('filename_from_src', True)
         .sub_dir()
+        .set('overrides', file.overrides, optional=True)
         .specific()
         .recovery_available()
     )
@@ -680,6 +685,7 @@ def write_dummy_shared_libs_packages(
         .name(package_name)
         .stem(stem)
         .multilibs(bitses)
+        .set('overrides', file.overrides, optional=True)
         .specific()
     )
 
