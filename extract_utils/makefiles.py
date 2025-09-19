@@ -212,6 +212,19 @@ def write_elfs_package(
     bitses: List[int] = []
     depses: List[Optional[List[str]]] = []
 
+    missing_files = []
+    for f in files:
+        f_path = f'{ctx.vendor_prop_path}/{f.dst}'
+        if not os.path.exists(f_path):
+            missing_files.append(f.dst)
+
+    if missing_files:
+        color_print(
+            f'Skipping package generation for {file.dst} - missing files: {missing_files}',
+            color=Color.YELLOW,
+        )
+        return None
+
     for f in files:
         f_path = f'{ctx.vendor_prop_path}/{f.dst}'
 
@@ -284,6 +297,14 @@ def write_lib_package(
     builder: FileBpBuilder,
     ctx: ProductPackagesCtx,
 ):
+    f_path = f'{ctx.vendor_prop_path}/{file.dst}'
+    if not os.path.exists(f_path):
+        color_print(
+            f'Skipping package generation for {file.dst} - file not found',
+            color=Color.YELLOW,
+        )
+        return None
+
     return write_elfs_package(
         [file],
         builder,
@@ -310,6 +331,14 @@ def write_bin_package(
 ):
     if file.ext == '.sh':
         return write_sh_package(file, builder)
+
+    f_path = f'{ctx.vendor_prop_path}/{file.dst}'
+    if not os.path.exists(f_path):
+        color_print(
+            f'Skipping package generation for {file.dst} - file not found',
+            color=Color.YELLOW,
+        )
+        return None
 
     return write_elfs_package(
         [file],
@@ -436,8 +465,10 @@ def write_common_packages_group(
     for files in file_tree.common_files_iter():
         builder = create_builder(ctx, file_tree, files[0], encoder)
         package_name = fn(files, builder, *args, **kwargs)
-        builder.write(out)
-        package_names.append(package_name)
+
+        if package_name is not None:
+            builder.write(out)
+            package_names.append(package_name)
 
 
 def write_packages_group(
@@ -453,10 +484,12 @@ def write_packages_group(
     for file in file_tree:
         builder = create_builder(ctx, file_tree, file, encoder)
         package_name = fn(file, builder, *args, **kwargs)
-        builder.write(out)
-        package_names.append(package_name)
-        if file.recovery_available:
-            package_names.append(f'{package_name}.recovery')
+
+        if package_name is not None:
+            builder.write(out)
+            package_names.append(package_name)
+            if file.recovery_available:
+                package_names.append(f'{package_name}.recovery')
 
 
 def write_packages_inclusion(package_names: List[str], out: TextIO):
