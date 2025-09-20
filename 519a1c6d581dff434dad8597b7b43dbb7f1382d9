@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cf22cc9_8970ef23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000012
+      },
+      "writtenOn": "2025-09-20T02:15:01Z",
+      "side": 1,
+      "message": "my boy Jyotiraditya to the rescue!",
+      "revId": "519a1c6d581dff434dad8597b7b43dbb7f1382d9",
+      "serverId": "3162e3d8-d894-470e-abd9-724f7b0effad"
+    }
+  ]
+}
