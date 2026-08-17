@@ -45,6 +45,7 @@ BIN_PARTS = ['bin']
 
 class FileArgs(str, Enum):
     AB = 'AB'
+    APPS = 'APPS'
     CERTIFICATE = 'CERTIFICATE'
     BOOT_JAR = 'BOOT_JAR'
     DUMMY_SHARED_LIB = 'DUMMY_SHARED_LIB'
@@ -71,6 +72,7 @@ class FileArgs(str, Enum):
 
 FILE_ARGS_TYPE_MAP: Dict[FileArgs, Union[Type[str], Type[List[Any]], bool]] = {
     FileArgs.AB: True,
+    FileArgs.APPS: list,
     FileArgs.CERTIFICATE: str,
     FileArgs.BOOT_JAR: True,
     FileArgs.DUMMY_SHARED_LIB: True,
@@ -280,6 +282,10 @@ class File:
     @property
     def overrides(self):
         return self.args.get(FileArgs.OVERRIDES)
+
+    @property
+    def apps(self):
+        return self.args.get(FileArgs.APPS)
 
     @property
     def required(self):

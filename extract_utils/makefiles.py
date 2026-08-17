@@ -464,6 +464,7 @@ def write_apex_package(file: File, builder: FileBpBuilder):
         .owner()
         .src()
         .filename()
+        .set('apps', file.apps, optional=True)
         .set('overrides', file.overrides, optional=True)
         .specific()
     )
