@@ -45,7 +45,7 @@ ALL_PARTITIONS = [
     'odm',
     'recovery',
 ]
-APEX_PARTITIONS = ['system', 'vendor', 'system_ext']
+APEX_PARTITIONS = ['system', 'vendor', 'product', 'system_ext']
 RFSA_PARTITIONS = ['vendor', 'odm']
 
 RUST_DYLIB_SUFFIX = '.dylib.so'
